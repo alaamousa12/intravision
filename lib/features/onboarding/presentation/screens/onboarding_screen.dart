@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/routes/app_routes.dart';
-import '../../../../core/routes/route_guards.dart';
-import '../../../../core/storage/app_storage.dart';
+import '../../cubit/onboarding_cubit.dart';
 import 'onboarding_view.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -32,16 +32,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeOut,
       );
     } else {
-      // 1. حفظ حالة اكتمال الـ onboarding
-      await AppStorage.setOnboardingCompleted();
+      // 1️⃣ إكمال الـ onboarding رسميًا
+      await context.read<OnboardingCubit>().complete();
 
-      // 2. تحديث الـ Guard يدوياً (مؤقتاً)
-      RouteGuards.hasCompletedOnboarding = true;
+      if (!mounted) return;
 
-      if (mounted) {
-        // 3. الانتقال للـ Main (الـ Guard هيشوف إنك مش مسجل دخول فيحولك للـ Login اللي عملناه Scaffold مؤقت)
-        Navigator.pushReplacementNamed(context, AppRoutes.main);
-      }
+      // 2️⃣ الانتقال لروت محمي
+      Navigator.pushReplacementNamed(context, AppRoutes.main);
     }
   }
 
