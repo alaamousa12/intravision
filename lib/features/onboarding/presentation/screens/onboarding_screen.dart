@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/routes/app_routes.dart';
+import '../../cubit/onboarding_cubit.dart';
 import 'onboarding_view.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -22,14 +25,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     setState(() => _currentIndex = index);
   }
 
-  void _next() {
+  void _next() async {
     if (_currentIndex < 2) {
       _controller.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeOut,
       );
     } else {
-      // TODO: navigate to login بعد onboarding
+      // 1️⃣ إكمال الـ onboarding رسميًا
+      await context.read<OnboardingCubit>().complete();
+
+      if (!mounted) return;
+
+      // 2️⃣ الانتقال لروت محمي
+      Navigator.pushReplacementNamed(context, AppRoutes.login);
     }
   }
 

@@ -1,51 +1,40 @@
 import 'app_routes.dart';
 
-/// Central place for navigation decisions
-/// Guards must be stateless & pure
 class RouteGuards {
   RouteGuards._();
-
-  /* =======================
-     TEMP USER STATE
-     (Later replaced by Cubit / Service)
-  ======================= */
 
   static bool isLoggedIn = false;
   static bool hasCompletedOnboarding = false;
   static bool hasGivenMedicalConsent = false;
 
-  /* =======================
-     MAIN GUARD
-  ======================= */
-
   static String? guard(String routeName) {
-    // 1️⃣ Onboarding
+    // Splash NEVER guarded
+    if (routeName == AppRoutes.splash) {
+      return null;
+    }
+
+    // 1️⃣ Onboarding must be completed first
     if (!hasCompletedOnboarding &&
         !_onboardingAllowedRoutes.contains(routeName)) {
       return AppRoutes.onboarding;
     }
 
-    // 2️⃣ Authentication
+    // 2️⃣ Authentication required after onboarding
     if (hasCompletedOnboarding &&
         !isLoggedIn &&
         !_authAllowedRoutes.contains(routeName)) {
       return AppRoutes.login;
     }
 
-    // 3️⃣ Medical Consent
+    // 3️⃣ Medical consent after login
     if (isLoggedIn &&
         !hasGivenMedicalConsent &&
         !_consentAllowedRoutes.contains(routeName)) {
       return AppRoutes.medicalConsent;
     }
 
-    // ✅ Allowed
     return null;
   }
-
-  /* =======================
-     ALLOWED ROUTES
-  ======================= */
 
   static const List<String> _onboardingAllowedRoutes = [
     AppRoutes.splash,

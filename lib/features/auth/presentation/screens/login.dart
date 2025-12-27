@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/routes/app_routes.dart';
-import '../../cubit/medical_consent.dart';
-class MedicalConsentScreen extends StatelessWidget {
-  const MedicalConsentScreen({super.key});
+import '../bloc/auth_cubit.dart';
+
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: ElevatedButton(
-          child: const Text('Accept Medical Consent'),
           onPressed: () {
-            context.read<MedicalConsentCubit>().accept();
+            context.read<AuthCubit>().login();
+
             Navigator.pushReplacementNamed(context, AppRoutes.main);
           },
+          child: const Text('Login'),
         ),
       ),
     );

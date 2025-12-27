@@ -1,0 +1,13 @@
+{
+  "onboarding": {
+    "page1_title": "AI-Powered Brain Tumor Analysis",
+    "page1_subtitle": "Advanced machine learning technology for accurate and reliable brain tumor detection and analysis",
+    "page2_title": "Upload MRI & Get Instant Results",
+    "page2_subtitle": "Safe, secure, and fast MRI insights powered by cutting-edge AI technology.",
+    "page3_title": "Fast & Accurate Diagnosis",
+    "page3_subtitle": "Advanced deep learning algorithms provide precise tumor detection in seconds.",
+    "next": "Next",
+    "get_started": "Get Started",
+    "skip": "Skip"
+  }
+}

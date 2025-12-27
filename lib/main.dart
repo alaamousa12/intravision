@@ -1,18 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intravision/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'app.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const OnboardingScreen(),
-    );
-  }
+  runApp(const App());
 }
